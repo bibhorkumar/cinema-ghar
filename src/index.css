@@ -65,3 +65,58 @@ header > h2{
 .movie-title{
   font-weight: 500;
 }
+
+.modal-background{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: gainsboro;
+
+}
+
+.modal-container{
+  width: 70%;
+  height: 80vh;
+  margin: 5rem auto;
+  padding: 2rem;
+  background-color: white;
+  box-shadow: 5px 5px 8px grey;
+  border-radius: 8px;
+}
+
+.modal-title{
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-close-btn{
+  height: 1.3rem;
+  width: 1.3rem;
+  color: white;
+  background-color: #0da6f7;
+  border: 1px solid darkgrey;
+  border-radius: 3px;
+}
+
+.modal-body{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  padding: 2rem;
+  overflow-y: overlay;
+  height: 90%;
+  justify-items: center;
+}
+
+@media (min-width: 350px) and (max-width:860px){
+  .modal-container{
+    width: 85%;
+    height: 85vh;
+    padding: 1.2rem;
+  }
+
+  .modal-body{
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+}
