@@ -17,7 +17,7 @@ body{
   padding: 1rem 2rem;
 }
 
-header > h2{
+header > h1{
   color: aliceblue;
   letter-spacing: 2px;
 }
@@ -118,5 +118,15 @@ header > h2{
   .modal-body{
     grid-template-columns: 1fr;
     justify-items: center;
+  }
+
+  .header{
+    flex-direction: column;
+    height: fit-content;
+  }
+
+  .search-bar{
+    border-radius: 0.7rem;
+    font-size: 0.8rem;
   }
 }
