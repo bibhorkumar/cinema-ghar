@@ -2,6 +2,7 @@ import React from "react"
 import Header from "./components/Header"
 import PopularList from "./components/PopularList"
 import ResultsModal from "./components/ResultsModal";
+import ThemeContext from "./ThemeContext";
 
 function App() {
   const apiKey="124ebbcded9f53e4f4dc4fd0a57674f8";
@@ -10,15 +11,10 @@ function App() {
   const [popularTVShows, setpopularTVShows] = React.useState([])
   const [searchQuery, setSearchQuery]= React.useState("")
   const [searchResults, setSearchResults] = React.useState([])
-  const [modal,setModal] =React.useState(false)
+  const [modal, setModal] = React.useState(false)
+  const [darkMode, setDarkMode] = React.useState(false)
   const inputRef = React.useRef();
 
-
-  // const handleChange =(event) =>{
-  //   const value =event.target.value;
-    
-  //   setModal(true)
-  // }
 
   const handleKeyDown =(event) =>{
     if(event.key==="Enter"){
@@ -28,9 +24,6 @@ function App() {
     }
   }
 
-
-
-  // console.log("body runs")
 
   const getTopRatedMovies = async ()=>{
     const res = await fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US&page=1`)
@@ -60,32 +53,35 @@ function App() {
       
   }, [searchQuery] )
   
-  console.log(searchResults)
+  // console.log(searchResults)
+  const sectionHeaderclass = darkMode ? "section-header sec-hed-dark":"section-header";
 
   return (
-    <div style={{position: "relative"}}>
+    <ThemeContext.Provider value={darkMode}>
+    <div className={darkMode ? "app-body body-dark":"app-body"}>
       {modal && <ResultsModal query={searchQuery} searchResults={searchResults} closeModal={()=>{setModal(false)}}/>}
-      <Header inputRef={inputRef} searchQuery={searchQuery} handleKeyDown={handleKeyDown}/>
+      <Header toggleTheme={()=>{setDarkMode(prevMode=>!prevMode)}} inputRef={inputRef} searchQuery={searchQuery} handleKeyDown={handleKeyDown}/>
       <section className="page-section">
-        <h3>POPULAR MOVIES</h3>
+        <h3 className={sectionHeaderclass}>POPULAR MOVIES</h3>
         <div className="movies-scroller">
           <PopularList popularMovies={popularMovies}/>
         </div>
       </section>
       <section className="page-section">
-        <h3>TOP RATED MOVIES</h3>
+        <h3 className={sectionHeaderclass}>TOP RATED MOVIES</h3>
         <div className="movies-scroller">
           <PopularList popularMovies={topRatedMovies}/>
         </div>
       </section> 
       <section className="page-section">
-        <h3>POPULAR TV SHOWS</h3>
+        <h3 className={sectionHeaderclass}>POPULAR TV SHOWS</h3>
         <div className="movies-scroller">
           <PopularList popularMovies={popularTVShows}/>
         </div>
       </section>
        
     </div>
+    </ThemeContext.Provider>
   );
 }
 

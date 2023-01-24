@@ -1,10 +1,14 @@
 import React from "react";
+import ThemeContext from "../ThemeContext";
 
 function PopularList({ popularMovies }) {
+
+  const darkMode =React.useContext(ThemeContext)
+  const cardClassName= darkMode ? "movie-card dark" : "movie-card"
   return (
     <>
       {popularMovies.map((movie) => (
-        <div className="movie-card">
+        <div className={cardClassName}>
           <img
             alt={movie.title}
             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
